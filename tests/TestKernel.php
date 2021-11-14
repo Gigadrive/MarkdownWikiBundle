@@ -19,22 +19,26 @@
 
 namespace Gigadrive\Bundle\MarkdownWikiBundle\Tests;
 
-use Gigadrive\Bundle\MarkdownWikiBundle\DependencyInjection\MarkdownWikiBundleExtension;
-use Gigadrive\Bundle\MarkdownWikiBundle\Service\MarkdownWikiParser;
-use JetBrains\PhpStorm\Pure;
-use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
+use Exception;
+use Gigadrive\Bundle\MarkdownWikiBundle\MarkdownWikiBundle;
+use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
+use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
+use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\HttpKernel\Kernel;
 
-class BundleExtensionTest extends AbstractExtensionTestCase {
-	/**
-	 * @test
-	 * @author Mehdi Baaboura <mbaaboura@gigadrivegroup.com>
-	 */
-	public function testServiceLoading() {
-		$this->load();
-		$this->assertContainerBuilderHasService("markdownwiki.parser", MarkdownWikiParser::class);
+class TestKernel extends Kernel {
+	use MicroKernelTrait;
+
+	public function registerBundles(): iterable {
+		yield new FrameworkBundle;
+		yield new MarkdownWikiBundle;
 	}
 
-	#[Pure] protected function getContainerExtensions(): array {
-		return [new MarkdownWikiBundleExtension];
+	/**
+	 * @throws Exception
+	 */
+	protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void {
+		$loader->load(__DIR__ . "/Fixtures/Resources/config/**/*.{php,xml,yaml,yml}", "glob");
 	}
 }
