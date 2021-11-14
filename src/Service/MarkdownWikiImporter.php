@@ -93,7 +93,9 @@ class MarkdownWikiImporter {
 
 		foreach ($finder as $file) {
 			if ($file->getFilename() === "content.md") {
-				$content = $this->parser->parse($file->getContents());
+				$content = $this->parser
+					->setSafeMode(true)
+					->text($file->getContents());
 			} else {
 				$meta = Yaml::parse($file->getContents());
 
