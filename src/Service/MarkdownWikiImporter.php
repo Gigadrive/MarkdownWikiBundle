@@ -25,7 +25,9 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Yaml\Yaml;
 use function is_dir;
+use function is_empty;
 use function is_null;
+use function str_ends_with;
 use function str_replace;
 use function strlen;
 use function substr;
@@ -79,7 +81,7 @@ class MarkdownWikiImporter {
 	protected function readFilesInDirectory(string $path): ?MarkdownWikiPage {
 		$finder = (new Finder())
 			->in($path)
-			->name(["content.md", "meta.yaml", "meta.yml"])
+			->name(["*.md", "meta.yaml", "meta.yml"])
 			->files()
 			->depth("== 0")
 			->ignoreVCS(true);
@@ -92,11 +94,14 @@ class MarkdownWikiImporter {
 		$title = null;
 		$description = null;
 		$pagePath = "/" . $this->stripPathPrefix($path);
-		$content = null;
+		$content = [];
 
 		foreach ($finder as $file) {
-			if ($file->getFilename() === "content.md") {
-				$content = $this->parser
+			if (str_ends_with($file->getFilename(), ".md")) {
+				$language = $file->getFilenameWithoutExtension();
+				if ($language === "content") $language = "en"; // backwards compatibility
+
+				$content[$language] = $this->parser
 					->setSafeMode(true)
 					->text($file->getContents());
 			} else {
@@ -112,7 +117,7 @@ class MarkdownWikiImporter {
 			}
 		}
 
-		if (is_null($title) || is_null($pagePath) || is_null($content)) {
+		if (is_null($title) || is_null($pagePath) || is_empty($content)) {
 			$this->logger->warning("Directory values in $path are invalid.");
 			return null;
 		}
