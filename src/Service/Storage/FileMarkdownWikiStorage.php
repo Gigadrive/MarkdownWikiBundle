@@ -22,22 +22,25 @@ namespace Gigadrive\Bundle\MarkdownWikiBundle\Service\Storage;
 use Gigadrive\Bundle\MarkdownWikiBundle\Model\MarkdownWikiPage;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\HttpKernel\KernelInterface;
 use function file_exists;
 use function file_get_contents;
 use function file_put_contents;
 use function mkdir;
 use function serialize;
-use function sys_get_temp_dir;
 use function unserialize;
 use const DIRECTORY_SEPARATOR;
 
 class FileMarkdownWikiStorage implements MarkdownWikiStorageInterface {
 	public function __construct(
-		protected ?string $path = null
+		protected KernelInterface $kernel,
+		protected ?string         $path = null
 	) {
 	}
 
 	public function store(MarkdownWikiPage $page): void {
+		$this->createCacheDirectory();
+
 		$dirPath = $this->getPath() . $page->getPath();
 		if (!file_exists($dirPath)) {
 			mkdir($dirPath, 077, true);
@@ -50,7 +53,15 @@ class FileMarkdownWikiStorage implements MarkdownWikiStorageInterface {
 	}
 
 	public function getPath(): string {
-		return $this->path ?: sys_get_temp_dir() . DIRECTORY_SEPARATOR . "markdownwikibundle-cache";
+		return $this->path ?: $this->kernel->getCacheDir() . DIRECTORY_SEPARATOR . "markdownwikibundle-cache";
+	}
+
+	public function createCacheDirectory() {
+		$path = $this->getPath();
+
+		if (!file_exists($path)) {
+			mkdir($path, 077, true);
+		}
 	}
 
 	public function get(string $path): ?MarkdownWikiPage {
@@ -64,6 +75,8 @@ class FileMarkdownWikiStorage implements MarkdownWikiStorageInterface {
 	}
 
 	public function flush(): void {
+		$this->createCacheDirectory();
+
 		(new Filesystem)
 			->remove(
 				(new Finder())

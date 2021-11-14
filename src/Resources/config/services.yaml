@@ -33,6 +33,8 @@ services:
 
     markdownwiki.storage.file:
         class: Gigadrive\Bundle\MarkdownWikiBundle\Service\Storage\FileMarkdownWikiStorage
+        arguments:
+            - '@kernel'
 
     markdownwiki.storage:
         alias: markdownwiki.storage.file
