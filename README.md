@@ -7,6 +7,7 @@ Work in progress
 This library uses PHPUnit as a testing framework.
 
 ```
+git submodule update --init --recursive
 composer install
 php ./vendor/bin/phpunit
 ```
