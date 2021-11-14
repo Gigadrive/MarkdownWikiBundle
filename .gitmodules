@@ -1,0 +1,3 @@
+[submodule "example-wiki"]
+	path = example-wiki
+	url = https://github.com/Gigadrive/mcskinhistory-wiki
