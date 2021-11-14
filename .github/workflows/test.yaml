@@ -8,6 +8,7 @@ jobs:
 
         steps:
             -   uses: actions/checkout@v2
+            -   uses: textbook/git-checkout-submodule-action@master
             -   uses: php-actions/composer@v5
             -   uses: php-actions/phpunit@v3
                 with:
