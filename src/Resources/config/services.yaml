@@ -4,3 +4,5 @@ services:
         autowire: true
         autoconfigure: true
 
+    markdownwiki.parser:
+        class: Gigadrive\Bundle\MarkdownWikiBundle\Service\MarkdownWikiParser
