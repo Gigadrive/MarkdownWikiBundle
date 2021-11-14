@@ -1,0 +1,6 @@
+services:
+    Gigadrive\Bundle\MarkdownWikiBundle\Service:
+        resource: '../../Service/*'
+        autowire: true
+        autoconfigure: true
+
