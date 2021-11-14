@@ -17,3 +17,12 @@ services:
             - ''
             - '@markdownwiki.parser'
             - '@logger'
+
+    markdownwiki.storage.file:
+        class: Gigadrive\Bundle\MarkdownWikiBundle\Service\Storage\FileMarkdownWikiStorage
+
+    markdownwiki.storage:
+        alias: markdownwiki.storage.file
+
+    Gigadrive\Bundle\MarkdownWikiBundle\Service\Storage\MarkdownWikiStorageInterface:
+        alias: markdownwiki.storage

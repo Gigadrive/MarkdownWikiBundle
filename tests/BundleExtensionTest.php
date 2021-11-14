@@ -22,6 +22,8 @@ namespace Gigadrive\Bundle\MarkdownWikiBundle\Tests;
 use Gigadrive\Bundle\MarkdownWikiBundle\DependencyInjection\MarkdownWikiBundleExtension;
 use Gigadrive\Bundle\MarkdownWikiBundle\Service\MarkdownWikiImporter;
 use Gigadrive\Bundle\MarkdownWikiBundle\Service\MarkdownWikiParser;
+use Gigadrive\Bundle\MarkdownWikiBundle\Service\Storage\FileMarkdownWikiStorage;
+use Gigadrive\Bundle\MarkdownWikiBundle\Service\Storage\MarkdownWikiStorageInterface;
 use JetBrains\PhpStorm\Pure;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 
@@ -34,6 +36,9 @@ class BundleExtensionTest extends AbstractExtensionTestCase {
 		$this->load();
 		$this->assertContainerBuilderHasService("markdownwiki.parser", MarkdownWikiParser::class);
 		$this->assertContainerBuilderHasService("markdownwiki.importer", MarkdownWikiImporter::class);
+
+		$this->assertContainerBuilderHasService("markdownwiki.storage", FileMarkdownWikiStorage::class);
+		$this->assertContainerBuilderHasService(MarkdownWikiStorageInterface::class, FileMarkdownWikiStorage::class);
 	}
 
 	#[Pure] protected function getContainerExtensions(): array {
