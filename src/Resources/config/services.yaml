@@ -1,12 +1,15 @@
 services:
     _defaults:
-        autowire: true
-        autoconfigure: true
         public: true
 
     Gigadrive\Bundle\MarkdownWikiBundle\:
+        autowire: true
+        autoconfigure: true
         resource: '../../*'
-        exclude: '../../{DependencyInjection,Constants,Entity,MarkdownWikiBundle.php}'
+        exclude: '../../{DependencyInjection,Constants,Model,Entity,MarkdownWikiBundle.php,Service/MarkdownWikiImporter.php}'
 
     markdownwiki.parser:
         class: Gigadrive\Bundle\MarkdownWikiBundle\Service\MarkdownWikiParser
+
+    markdownwiki.importer:
+        class: Gigadrive\Bundle\MarkdownWikiBundle\Service\MarkdownWikiImporter

@@ -21,6 +21,7 @@ namespace Gigadrive\Bundle\MarkdownWikiBundle\DependencyInjection;
 
 use JetBrains\PhpStorm\Pure;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
+use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -32,8 +33,21 @@ class MarkdownWikiBundleConfiguration implements ConfigurationInterface {
 	}
 
 	public function getConfigTreeBuilder(): TreeBuilder {
-		// TODO: Config values
+		$treeBuilder = new TreeBuilder("markdown_wiki_bundle", "array", $this->builder);
+		$root = $treeBuilder->getRootNode();
 
-		return new TreeBuilder("markdown_wiki", "array", $this->builder);
+		$root
+			->addDefaultsIfNotSet()
+			->children()
+			->append($this->createSourceDirectoryNode());
+
+		return $treeBuilder;
+	}
+
+	protected function createSourceDirectoryNode(): NodeDefinition {
+		return $this->builder
+			->scalarNode("source_directory")
+			->info("The path to the directory holding the source markdown files.")
+			->defaultValue("%kernel.project_dir%/wiki/");
 	}
 }

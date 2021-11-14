@@ -30,13 +30,6 @@ class MarkdownWikiBundleExtension extends Extension {
 	 * @throws Exception
 	 */
 	public function load(array $configs, ContainerBuilder $container) {
-		$this->processConfiguration(
-			new MarkdownWikiBundleConfiguration(),
-			$configs
-		);
-
-		$this->addAnnotatedClassesToCompile([]);
-
 		$loader = new YamlFileLoader(
 			$container,
 			new FileLocator(__DIR__ . "/../Resources/config")
@@ -45,5 +38,19 @@ class MarkdownWikiBundleExtension extends Extension {
 		foreach (["services.yaml"] as $configFile) {
 			$loader->load($configFile);
 		}
+
+		$config = $this->processConfiguration(
+			new MarkdownWikiBundleConfiguration(),
+			$configs
+		);
+
+		$this->addImporterDefinitionArguments($container, $config);
+
+		$this->addAnnotatedClassesToCompile([]);
+	}
+
+	protected function addImporterDefinitionArguments(ContainerBuilder $container, array $config) {
+		$definition = $container->getDefinition("markdownwiki.importer");
+		$definition->setArgument("\$sourceDirectory", $config["source_directory"]);
 	}
 }
