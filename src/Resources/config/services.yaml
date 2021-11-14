@@ -11,11 +11,24 @@ services:
     markdownwiki.parser:
         class: Gigadrive\Bundle\MarkdownWikiBundle\Service\MarkdownWikiParser
 
+    Gigadrive\Bundle\MarkdownWikiBundle\Service\MarkdownWikiParser:
+        alias: markdownwiki.parser
+
     markdownwiki.importer:
         class: Gigadrive\Bundle\MarkdownWikiBundle\Service\MarkdownWikiImporter
         arguments:
             - ''
             - '@markdownwiki.parser'
+            - '@logger'
+
+    Gigadrive\Bundle\MarkdownWikiBundle\Service\MarkdownWikiImporter:
+        alias: markdownwiki.importer
+
+    markdownwiki.storageservice:
+        class: Gigadrive\Bundle\MarkdownWikiBundle\Service\MarkdownWikiStorageService
+        arguments:
+            - '@markdownwiki.storage'
+            - '@markdownwiki.importer'
             - '@logger'
 
     markdownwiki.storage.file:

@@ -39,18 +39,21 @@ class MarkdownWikiImporter {
 		if (!is_dir($this->sourceDirectory)) throw new InvalidArgumentException("The source directory $this->sourceDirectory does not exist!");
 	}
 
+	/**
+	 * @return MarkdownWikiPage[]
+	 * @author Mehdi Baaboura <mbaaboura@gigadrivegroup.com>
+	 */
 	public function crawl(): array {
 		$pages = [];
 
 		// read root page
 		$page = $this->readFilesInDirectory($this->sourceDirectory);
-		if (is_null($page)) $pages[] = $page;
+		if (!is_null($page)) $pages[] = $page;
 
 		$finder = new Finder;
 
 		$finder
 			->ignoreVCS(true)
-			->files()
 			->followLinks()
 			->in($this->sourceDirectory)
 			->directories();

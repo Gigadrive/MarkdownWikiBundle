@@ -25,6 +25,7 @@ use Symfony\Component\Finder\Finder;
 use function file_exists;
 use function file_get_contents;
 use function file_put_contents;
+use function mkdir;
 use function serialize;
 use function sys_get_temp_dir;
 use function unserialize;
@@ -37,7 +38,13 @@ class FileMarkdownWikiStorage implements MarkdownWikiStorageInterface {
 	}
 
 	public function store(MarkdownWikiPage $page): void {
-		$filePath = $this->getPath() . $page->getPath();
+		$dirPath = $this->getPath() . $page->getPath();
+		if (!file_exists($dirPath)) {
+			mkdir($dirPath, 077, true);
+		}
+
+		$filePath = $dirPath . "/page.dat";
+
 
 		file_put_contents($filePath, serialize($page));
 	}

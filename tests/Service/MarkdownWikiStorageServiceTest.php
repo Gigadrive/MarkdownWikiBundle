@@ -19,32 +19,23 @@
 
 namespace Gigadrive\Bundle\MarkdownWikiBundle\Tests\Service;
 
-use Gigadrive\Bundle\MarkdownWikiBundle\Service\MarkdownWikiImporter;
+use Gigadrive\Bundle\MarkdownWikiBundle\Service\MarkdownWikiStorageService;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use function is_dir;
 
-class MarkdownWikiImporterTest extends KernelTestCase {
-	protected MarkdownWikiImporter $importer;
-
-	/**
-	 * @test
-	 * @author Mehdi Baaboura <mbaaboura@gigadrivegroup.com>
-	 */
-	public function testSourceDirectory() {
-		$this->assertTrue(is_dir($this->importer->getSourceDirectory()));
-	}
+class MarkdownWikiStorageServiceTest extends KernelTestCase {
+	protected MarkdownWikiStorageService $storageService;
 
 	/**
 	 * @test
 	 * @author Mehdi Baaboura <mbaaboura@gigadrivegroup.com>
 	 */
-	public function testCrawl() {
-		$this->assertGreaterThanOrEqual(2, count($this->importer->crawl()));
+	public function testRebuildStorageCache() {
+		$this->assertNull($this->storageService->rebuildStorageCache());
 	}
 
 	protected function setUp(): void {
 		self::bootKernel();
 
-		$this->importer = static::getContainer()->get("markdownwiki.importer");
+		$this->storageService = static::getContainer()->get("markdownwiki.storageservice");
 	}
 }
