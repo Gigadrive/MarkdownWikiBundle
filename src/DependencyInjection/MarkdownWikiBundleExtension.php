@@ -37,14 +37,12 @@ class MarkdownWikiBundleExtension extends Extension {
 
 		$this->addAnnotatedClassesToCompile([]);
 
-		$configFiles = ["services.yaml"];
-
 		$loader = new YamlFileLoader(
 			$container,
 			new FileLocator(__DIR__ . "/../Resources/config")
 		);
 
-		foreach ($configFiles as $configFile) {
+		foreach (["services.yaml"] as $configFile) {
 			$loader->load($configFile);
 		}
 	}

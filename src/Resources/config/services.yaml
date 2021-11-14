@@ -1,8 +1,11 @@
 services:
-    Gigadrive\Bundle\MarkdownWikiBundle\Service:
-        resource: '../../Service/*'
+    _defaults:
         autowire: true
         autoconfigure: true
+
+    Gigadrive\Bundle\MarkdownWikiBundle\:
+        resource: '../../*'
+        exclude: '../../{DependencyInjection,Constants,Entity,MarkdownWikiBundle.php}'
 
     markdownwiki.parser:
         class: Gigadrive\Bundle\MarkdownWikiBundle\Service\MarkdownWikiParser
