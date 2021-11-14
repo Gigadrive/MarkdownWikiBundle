@@ -1,2 +1,2 @@
 markdown_wiki_bundle:
-    source_directory: "%kernel.project_dir%/example-wiki/"
+    source_directory: "%kernel.project_dir%/example-wiki/pages/"

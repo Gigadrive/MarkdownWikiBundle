@@ -22,6 +22,7 @@ namespace Gigadrive\Bundle\MarkdownWikiBundle\Model;
 class MarkdownWikiPage {
 	public function __construct(
 		protected string $title,
+		protected string $description,
 		protected string $path,
 		protected string $content
 	) {
@@ -29,6 +30,10 @@ class MarkdownWikiPage {
 
 	public function getTitle(): string {
 		return $this->title;
+	}
+
+	public function getDescription(): string {
+		return $this->description;
 	}
 
 	public function getPath(): string {

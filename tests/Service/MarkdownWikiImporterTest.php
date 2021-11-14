@@ -26,8 +26,20 @@ use function is_dir;
 class MarkdownWikiImporterTest extends KernelTestCase {
 	protected MarkdownWikiImporter $importer;
 
+	/**
+	 * @test
+	 * @author Mehdi Baaboura <mbaaboura@gigadrivegroup.com>
+	 */
 	public function testSourceDirectory() {
 		$this->assertTrue(is_dir($this->importer->getSourceDirectory()));
+	}
+
+	/**
+	 * @test
+	 * @author Mehdi Baaboura <mbaaboura@gigadrivegroup.com>
+	 */
+	public function testCrawl() {
+		$this->assertGreaterThanOrEqual(1, count($this->importer->crawl()));
 	}
 
 	protected function setUp(): void {
