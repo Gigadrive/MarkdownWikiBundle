@@ -81,7 +81,7 @@ class MarkdownWikiImporter {
 	protected function readFilesInDirectory(string $path): ?MarkdownWikiPage {
 		$finder = (new Finder())
 			->in($path)
-			->name(["*.md", "meta.yaml", "meta.yml"])
+			->name(["*.md", "*.yaml", "*.yml"])
 			->files()
 			->depth("== 0")
 			->ignoreVCS(true);
@@ -91,8 +91,8 @@ class MarkdownWikiImporter {
 			return null;
 		}
 
-		$title = null;
-		$description = null;
+		$title = [];
+		$description = [];
 		$pagePath = "/" . $this->stripPathPrefix($path);
 		$content = [];
 
@@ -105,6 +105,9 @@ class MarkdownWikiImporter {
 					->setSafeMode(true)
 					->text($file->getContents());
 			} else {
+				$language = $file->getFilenameWithoutExtension();
+				if ($language === "meta") $language = "en"; // backwards compatibility
+
 				$meta = Yaml::parse($file->getContents());
 
 				if (!isset($meta["title"]) || !isset($meta["description"])) {
@@ -112,12 +115,12 @@ class MarkdownWikiImporter {
 					return null;
 				}
 
-				$title = $meta["title"];
-				$description = $meta["description"];
+				$title[$language] = $meta["title"];
+				$description[$language] = $meta["description"];
 			}
 		}
 
-		if (is_null($title) || is_null($pagePath) || is_empty($content)) {
+		if (is_empty($title) || is_empty($pagePath) || is_empty($content)) {
 			$this->logger->warning("Directory values in $path are invalid.");
 			return null;
 		}

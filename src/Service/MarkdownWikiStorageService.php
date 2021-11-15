@@ -35,7 +35,7 @@ class MarkdownWikiStorageService {
 
 		foreach ($this->importer->crawl() as $page) {
 			$this->storage->store($page);
-			$this->logger->info("Stored page " . $page->getPath() . " (" . $page->getTitle() . ")");
+			$this->logger->info("Stored page " . $page->getPath());
 		}
 	}
 }
