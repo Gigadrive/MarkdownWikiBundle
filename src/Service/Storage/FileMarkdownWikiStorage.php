@@ -28,6 +28,7 @@ use function file_get_contents;
 use function file_put_contents;
 use function mkdir;
 use function serialize;
+use function str_ends_with;
 use function unserialize;
 use const DIRECTORY_SEPARATOR;
 
@@ -65,13 +66,23 @@ class FileMarkdownWikiStorage implements MarkdownWikiStorageInterface {
 	}
 
 	public function get(string $path): ?MarkdownWikiPage {
-		$filePath = $this->getPath() . $path;
+		$filePath = $this->getPath() . $path . (!str_ends_with($path, "/") ? "/" : "") . "page.dat";
 		if (!file_exists($filePath)) return null;
 
 		$content = @file_get_contents($filePath);
 		if (!$content) return null;
 
 		return unserialize($content);
+	}
+
+	public function all(): array {
+		$pages = [];
+
+		foreach ((new Finder())->in($this->getPath())->name("page.dat") as $file) {
+			$pages[] = unserialize($file->getContents());
+		}
+
+		return $pages;
 	}
 
 	public function flush(): void {

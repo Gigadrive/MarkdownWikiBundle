@@ -23,22 +23,31 @@ use Exception;
 use Gigadrive\Bundle\MarkdownWikiBundle\MarkdownWikiBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
+use Symfony\Bundle\TwigBundle\TwigBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel;
+use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
 class TestKernel extends Kernel {
 	use MicroKernelTrait;
 
+	private const CONFIG_EXTS = '.{php,xml,yaml,yml}';
+
 	public function registerBundles(): iterable {
 		yield new FrameworkBundle;
 		yield new MarkdownWikiBundle;
+		yield new TwigBundle;
+	}
+
+	public function configureRoutes(RoutingConfigurator $routes): void {
+		$routes->import(__DIR__ . '/Fixtures/Resources/config/routes.yaml');
 	}
 
 	/**
 	 * @throws Exception
 	 */
 	protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void {
-		$loader->load(__DIR__ . "/Fixtures/Resources/config/**/*.{php,xml,yaml,yml}", "glob");
+		$loader->load(__DIR__ . "/Fixtures/Resources/config/packages/**/*" . self::CONFIG_EXTS, "glob");
 	}
 }
