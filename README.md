@@ -45,6 +45,7 @@ The file structure within your wiki directory is held simple.
 * `meta.yaml` files need to contain the following keys:
     `title` The page's title
     `description` The page's description
+    Any other keys will be passed on as "custom attributes". If you need any other data for a page, save it here.
 
 **Example:** If you want to create a page with the path `/account/creation`, you would need a folder with the path `/account/creation`. In that folder, you would create a file named `meta.yaml` and a file named `content.md`. The first contains meta data about your page, the second contains your actual page content.
 
