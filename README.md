@@ -41,7 +41,7 @@ Once you have installed and configured the bundle, you need to create a file str
 The file structure within your wiki directory is held simple.
 
 * Every folder represents a level of your page's path.
-* Every folder for a page needs to contain two files, one called `meta.yaml` and one called `content.md`. If you wish to support multiple languages, name this second file depending on your language code. For example for an English page, call it `en.md`
+* Every folder for a page needs to contain two files, one called `meta.yaml` and one called `content.md`. If you wish to support multiple languages, name these files depending on your language code. For example for an English page, call them `en.md` and `en.yaml`
 * `meta.yaml` files need to contain the following keys:
     `title` The page's title
     `description` The page's description
