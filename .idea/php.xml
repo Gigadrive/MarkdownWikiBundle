@@ -76,6 +76,9 @@
       <path value="$PROJECT_DIR$/vendor/nyholm/symfony-bundle-test" />
       <path value="$PROJECT_DIR$/vendor/matthiasnoback/symfony-dependency-injection-test" />
       <path value="$PROJECT_DIR$/vendor/matthiasnoback/symfony-config-test" />
+      <path value="$PROJECT_DIR$/vendor/symfony/browser-kit" />
+      <path value="$PROJECT_DIR$/vendor/symfony/dom-crawler" />
+      <path value="$PROJECT_DIR$/vendor/symfony/css-selector" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.0" />

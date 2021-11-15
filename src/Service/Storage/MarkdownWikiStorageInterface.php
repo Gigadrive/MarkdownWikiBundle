@@ -48,6 +48,14 @@ interface MarkdownWikiStorageInterface {
 	public function get(string $path): ?MarkdownWikiPage;
 
 	/**
+	 * Gets an array with all existing pages.
+	 *
+	 * @return MarkdownWikiPage[]
+	 * @author Mehdi Baaboura <mbaaboura@gigadrivegroup.com>
+	 */
+	public function all(): array;
+
+	/**
 	 * Flushes all stored wiki pages.
 	 *
 	 * @author Mehdi Baaboura <mbaaboura@gigadrivegroup.com>

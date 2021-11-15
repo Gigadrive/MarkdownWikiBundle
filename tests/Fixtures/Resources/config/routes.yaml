@@ -1,0 +1,2 @@
+markdown_wiki_bundle:
+    resource: "@MarkdownWikiBundle/Resources/config/routes.yaml"

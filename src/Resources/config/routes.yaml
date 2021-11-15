@@ -1,0 +1,7 @@
+page:
+    path: /wiki/{path}
+    controller: Gigadrive\Bundle\MarkdownWikiBundle\Controller\MarkdownWikiController::indexAction
+    defaults:
+        path: /
+    requirements:
+        path: .+
