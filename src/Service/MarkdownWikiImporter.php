@@ -95,6 +95,7 @@ class MarkdownWikiImporter {
 		$description = [];
 		$pagePath = "/" . $this->stripPathPrefix($path);
 		$content = [];
+		$customAttributes = [];
 
 		foreach ($finder as $file) {
 			if (str_ends_with($file->getFilename(), ".md")) {
@@ -117,6 +118,15 @@ class MarkdownWikiImporter {
 
 				$title[$language] = $meta["title"];
 				$description[$language] = $meta["description"];
+				$customAttributes[$language] = [];
+
+				foreach ($meta as $key => $value) {
+					if ($key === "title" || $key === "description") {
+						continue;
+					}
+
+					$customAttributes[$language][$key] = $value;
+				}
 			}
 		}
 
@@ -125,7 +135,7 @@ class MarkdownWikiImporter {
 			return null;
 		}
 
-		return new MarkdownWikiPage($title, $description, $pagePath, $content);
+		return new MarkdownWikiPage($title, $description, $pagePath, $content, $customAttributes);
 	}
 
 	protected function stripPathPrefix($path): string {
