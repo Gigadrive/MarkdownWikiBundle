@@ -49,7 +49,6 @@ class FileMarkdownWikiStorage implements MarkdownWikiStorageInterface {
 
 		$filePath = $dirPath . "/page.dat";
 
-
 		file_put_contents($filePath, serialize($page));
 	}
 

@@ -45,8 +45,8 @@ class MarkdownWikiControllerTest extends WebTestCase {
 
 			$this->client->request("GET", "/wiki" . $path);
 			$this->assertResponseIsSuccessful();
-			$this->assertSelectorTextContains("h1", $page->getTitle());
-			$this->assertSelectorTextContains("p.lead", $page->getDescription());
+			$this->assertSelectorTextContains("h1", $page->getTitle()["en"]);
+			$this->assertSelectorTextContains("p.lead", $page->getDescription()["en"]);
 		}
 	}
 

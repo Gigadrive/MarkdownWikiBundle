@@ -21,18 +21,18 @@ namespace Gigadrive\Bundle\MarkdownWikiBundle\Model;
 
 class MarkdownWikiPage {
 	public function __construct(
-		protected string $title,
-		protected string $description,
+		protected array  $title,
+		protected array  $description,
 		protected string $path,
-		protected array $content
+		protected array  $content
 	) {
 	}
 
-	public function getTitle(): string {
+	public function getTitle(): array {
 		return $this->title;
 	}
 
-	public function getDescription(): string {
+	public function getDescription(): array {
 		return $this->description;
 	}
 

@@ -51,13 +51,14 @@ class MarkdownWikiController extends AbstractController {
 		$locale = $request->getLocale() ?: "en";
 		$fallbackLocale = $this->getParameter("kernel.default_locale") ?: "en";
 
-		$content = $page->getContent();
-		$html = $content[$locale] ?? $content[$fallbackLocale] ?? "";
+		$title = $page->getTitle()[$locale] ?? $page->getTitle()[$fallbackLocale] ?? "";
+		$description = $page->getDescription()[$locale] ?? $page->getDescription()[$fallbackLocale] ?? "";
+		$content = $page->getContent()[$locale] ?? $page->getContent()[$fallbackLocale] ?? "";
 
 		return $this->render("@MarkdownWiki/page.html.twig", [
-			"title" => $page->getTitle(),
-			"description" => $page->getDescription(),
-			"html" => $html
+			"title" => $title,
+			"description" => $description,
+			"content" => $content
 		]);
 	}
 }
