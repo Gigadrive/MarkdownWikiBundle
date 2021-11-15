@@ -24,7 +24,8 @@ class MarkdownWikiPage {
 		protected array  $title,
 		protected array  $description,
 		protected string $path,
-		protected array  $content
+		protected array  $content,
+		protected array  $customAttributes
 	) {
 	}
 
@@ -42,5 +43,9 @@ class MarkdownWikiPage {
 
 	public function getContent(): array {
 		return $this->content;
+	}
+
+	public function getCustomAttributes(): array {
+		return $this->customAttributes;
 	}
 }
