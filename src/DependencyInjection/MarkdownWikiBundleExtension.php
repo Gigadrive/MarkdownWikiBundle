@@ -53,5 +53,6 @@ class MarkdownWikiBundleExtension extends Extension {
 		$definition = $container->getDefinition("markdownwiki.importer");
 		$definition->setArgument("\$sourceDirectory", $config["source_directory"]);
 		$definition->setArgument("\$useSafeMode", $config["use_safe_mode"]);
+		$definition->setArgument("\$markupEscaped", $config["markup_escaped"]);
 	}
 }
