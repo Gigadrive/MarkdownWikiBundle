@@ -62,7 +62,7 @@ class MarkdownWikiBundleConfiguration implements ConfigurationInterface {
 
 	protected function createMarkupEscapedNode(): NodeDefinition {
 		return $this->builder
-			->booleanNode("markup_escpaed")
+			->booleanNode("markup_escaped")
 			->info("Whether HTML is already properly escaped.")
 			->defaultValue(false);
 	}
