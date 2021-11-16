@@ -40,7 +40,8 @@ class MarkdownWikiBundleConfiguration implements ConfigurationInterface {
 			->addDefaultsIfNotSet()
 			->children()
 			->append($this->createSourceDirectoryNode())
-			->append($this->createSafeModeNode());
+			->append($this->createSafeModeNode())
+			->append($this->createMarkupEscapedNode());
 
 		return $treeBuilder;
 	}
@@ -56,6 +57,13 @@ class MarkdownWikiBundleConfiguration implements ConfigurationInterface {
 		return $this->builder
 			->booleanNode("use_safe_mode")
 			->info("Whether to use parse down safe mode.")
+			->defaultValue(false);
+	}
+
+	protected function createMarkupEscapedNode(): NodeDefinition {
+		return $this->builder
+			->booleanNode("markup_escpaed")
+			->info("Whether HTML is already properly escaped.")
 			->defaultValue(false);
 	}
 }

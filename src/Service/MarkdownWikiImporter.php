@@ -36,6 +36,7 @@ class MarkdownWikiImporter {
 	public function __construct(
 		protected string             $sourceDirectory,
 		protected bool               $useSafeMode,
+		protected bool               $markupEscaped,
 		protected MarkdownWikiParser $parser,
 		protected LoggerInterface    $logger
 	) {
@@ -105,6 +106,7 @@ class MarkdownWikiImporter {
 
 				$content[$language] = $this->parser
 					->setSafeMode($this->useSafeMode)
+					->setMarkupEscaped($this->markupEscaped)
 					->text($file->getContents());
 			} else {
 				$language = $file->getFilenameWithoutExtension();

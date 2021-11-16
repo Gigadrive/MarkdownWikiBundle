@@ -19,6 +19,7 @@ services:
         arguments:
             - ''
             - ''
+            - ''
             - '@markdownwiki.parser'
             - '@logger'
 
