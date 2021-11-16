@@ -39,7 +39,8 @@ class MarkdownWikiBundleConfiguration implements ConfigurationInterface {
 		$root
 			->addDefaultsIfNotSet()
 			->children()
-			->append($this->createSourceDirectoryNode());
+			->append($this->createSourceDirectoryNode())
+			->append($this->createSafeModeNode());
 
 		return $treeBuilder;
 	}
@@ -49,5 +50,12 @@ class MarkdownWikiBundleConfiguration implements ConfigurationInterface {
 			->scalarNode("source_directory")
 			->info("The path to the directory holding the source markdown files.")
 			->defaultValue("%kernel.project_dir%/wiki/");
+	}
+
+	protected function createSafeModeNode(): NodeDefinition {
+		return $this->builder
+			->booleanNode("use_safe_mode")
+			->info("Whether to use parse down safe mode.")
+			->defaultValue(false);
 	}
 }
