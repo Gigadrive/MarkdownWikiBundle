@@ -52,5 +52,6 @@ class MarkdownWikiBundleExtension extends Extension {
 	protected function addImporterDefinitionArguments(ContainerBuilder $container, array $config) {
 		$definition = $container->getDefinition("markdownwiki.importer");
 		$definition->setArgument("\$sourceDirectory", $config["source_directory"]);
+		$definition->setArgument("\$useSafeMode", $config["use_safe_mode"]);
 	}
 }

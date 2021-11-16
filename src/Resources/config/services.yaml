@@ -18,6 +18,7 @@ services:
         class: Gigadrive\Bundle\MarkdownWikiBundle\Service\MarkdownWikiImporter
         arguments:
             - ''
+            - ''
             - '@markdownwiki.parser'
             - '@logger'
 

@@ -35,6 +35,7 @@ use function substr;
 class MarkdownWikiImporter {
 	public function __construct(
 		protected string             $sourceDirectory,
+		protected bool               $useSafeMode,
 		protected MarkdownWikiParser $parser,
 		protected LoggerInterface    $logger
 	) {
@@ -103,7 +104,7 @@ class MarkdownWikiImporter {
 				if ($language === "content") $language = "en"; // backwards compatibility
 
 				$content[$language] = $this->parser
-					->setSafeMode(true)
+					->setSafeMode($this->useSafeMode)
 					->text($file->getContents());
 			} else {
 				$language = $file->getFilenameWithoutExtension();
