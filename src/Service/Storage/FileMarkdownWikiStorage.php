@@ -44,7 +44,7 @@ class FileMarkdownWikiStorage implements MarkdownWikiStorageInterface {
 
 		$dirPath = $this->getPath() . $page->getPath();
 		if (!file_exists($dirPath)) {
-			mkdir($dirPath, 077, true);
+			mkdir($dirPath, 0777, true);
 		}
 
 		$filePath = $dirPath . "/page.dat";
@@ -60,7 +60,7 @@ class FileMarkdownWikiStorage implements MarkdownWikiStorageInterface {
 		$path = $this->getPath();
 
 		if (!file_exists($path)) {
-			mkdir($path, 077, true);
+			mkdir($path, 0777, true);
 		}
 	}
 
